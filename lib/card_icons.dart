@@ -4,11 +4,11 @@ import 'constants.dart';
 
 class CardIcons extends StatelessWidget {
   final String label;
-  final IconData iconName;
+  final AssetImage imageName;
 
   CardIcons({
     this.label,
-    this.iconName,
+    this.imageName,
   });
 
   @override
@@ -16,9 +16,10 @@ class CardIcons extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          iconName,
-          size: 50,
+        Image(
+          image: imageName,
+          width: 50,
+          height: 50,
         ),
         SizedBox(
           height: 20,

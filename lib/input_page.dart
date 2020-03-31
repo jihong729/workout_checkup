@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:workoutcheckup/card_icons.dart';
 import 'package:workoutcheckup/workout_type_card.dart';
 
@@ -25,10 +25,22 @@ class _InputPageState extends State<InputPage> {
   int goalNumber = 15;
   Workout selectedWorkout;
 
+  WorkoutTypeCard workoutTypeCard = WorkoutTypeCard();
+
   int finishedPercent(int finishedNumber) {
     double dividedNumber = finishedNumber / goalNumber;
     int finalPercent = (dividedNumber * 100).round();
     return finalPercent;
+  }
+
+  void createAlert(int workoutNumber, String workoutName) {
+    if (workoutNumber == goalNumber) {
+      Alert(
+        context: context,
+        title: "Awesome!",
+        desc: "You finished the Goal for $workoutName.",
+      ).show();
+    }
   }
 
   @override
@@ -36,8 +48,11 @@ class _InputPageState extends State<InputPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('THE 15 WORKOUT CHALLENGE',
-            style: TextStyle(color: Color(0xFF2e7d32), fontSize: 20.0)),
+        title: Text(
+          'THE 15 WORKOUT CHALLENGE',
+          style: TextStyle(
+              color: Color(0xFF2e7d32), fontSize: 20.0, fontFamily: 'Anton'),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,8 +66,10 @@ class _InputPageState extends State<InputPage> {
                       setState(() {
                         selectedWorkout = Workout.UpperBody;
                         upperBodyFinishedNumber++;
-                        print(upperBodyFinishedNumber);
-                        print(finishedPercent(upperBodyFinishedNumber));
+                        createAlert(
+                          upperBodyFinishedNumber,
+                          'UpperBody',
+                        );
                       });
                     },
                     color: selectedWorkout == Workout.UpperBody
@@ -63,7 +80,7 @@ class _InputPageState extends State<InputPage> {
                       children: <Widget>[
                         CardIcons(
                           label: 'UpperBody',
-                          iconName: FontAwesomeIcons.arrowUp,
+                          imageName: AssetImage('icons/upperBody.png'),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 15.0),
@@ -99,8 +116,10 @@ class _InputPageState extends State<InputPage> {
                       setState(() {
                         selectedWorkout = Workout.LowerBody;
                         lowerBodyFinishedNumber++;
-                        print(lowerBodyFinishedNumber);
-                        print(finishedPercent(lowerBodyFinishedNumber));
+                        createAlert(
+                          lowerBodyFinishedNumber,
+                          'LowerBody',
+                        );
                       });
                     },
                     color: selectedWorkout == Workout.LowerBody
@@ -111,7 +130,7 @@ class _InputPageState extends State<InputPage> {
                       children: <Widget>[
                         CardIcons(
                           label: 'LowerBody',
-                          iconName: FontAwesomeIcons.arrowUp,
+                          imageName: AssetImage('icons/lowerBody.png'),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 15.0),
@@ -153,8 +172,10 @@ class _InputPageState extends State<InputPage> {
                       setState(() {
                         selectedWorkout = Workout.Range;
                         rangeFinishedNumber++;
-                        print(rangeFinishedNumber);
-                        print(finishedPercent(rangeFinishedNumber));
+                        createAlert(
+                          rangeFinishedNumber,
+                          'Range',
+                        );
                       });
                     },
                     color: selectedWorkout == Workout.Range
@@ -165,7 +186,7 @@ class _InputPageState extends State<InputPage> {
                       children: <Widget>[
                         CardIcons(
                           label: 'Range',
-                          iconName: FontAwesomeIcons.arrowUp,
+                          imageName: AssetImage('icons/range.png'),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 15.0),
@@ -200,8 +221,10 @@ class _InputPageState extends State<InputPage> {
                       setState(() {
                         selectedWorkout = Workout.Cardio;
                         cardioFinishedNumber++;
-                        print(cardioFinishedNumber);
-                        print(finishedPercent(cardioFinishedNumber));
+                        createAlert(
+                          cardioFinishedNumber,
+                          'Cardio',
+                        );
                       });
                     },
                     color: selectedWorkout == Workout.Cardio
@@ -212,7 +235,7 @@ class _InputPageState extends State<InputPage> {
                       children: <Widget>[
                         CardIcons(
                           label: 'Cardio',
-                          iconName: FontAwesomeIcons.arrowUp,
+                          imageName: AssetImage('icons/cardio.png'),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 15.0),
