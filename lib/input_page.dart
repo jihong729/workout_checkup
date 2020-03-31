@@ -95,21 +95,47 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: WorkoutTypeCard(
-                    onPress: () {},
-                    color: kDeactivatedBackgroundColor,
+                    onPress: () {
+                      setState(() {
+                        selectedWorkout = Workout.LowerBody;
+                        lowerBodyFinishedNumber++;
+                        print(lowerBodyFinishedNumber);
+                        print(finishedPercent(lowerBodyFinishedNumber));
+                      });
+                    },
+                    color: selectedWorkout == Workout.LowerBody
+                        ? kActivatedBackgroundColor
+                        : kDeactivatedBackgroundColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          lowerBodyFinishedNumber.toString(),
-                          style: kNumberFinishedTextStyle,
-                        ),
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         CardIcons(
                           label: 'LowerBody',
-                          iconName: FontAwesomeIcons.arrowDown,
+                          iconName: FontAwesomeIcons.arrowUp,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            lowerBodyFinishedNumber.toString(),
+                            style: kNumberFinishedTextStyle,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                finishedPercent(lowerBodyFinishedNumber)
+                                    .toString(),
+                                style: kNumberFinishedTextStyle,
+                              ),
+                              Text(
+                                '%',
+                                style: kNumberFinishedTextStyle,
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -123,21 +149,46 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: WorkoutTypeCard(
-                    onPress: () {},
-                    color: kDeactivatedBackgroundColor,
+                    onPress: () {
+                      setState(() {
+                        selectedWorkout = Workout.Range;
+                        rangeFinishedNumber++;
+                        print(rangeFinishedNumber);
+                        print(finishedPercent(rangeFinishedNumber));
+                      });
+                    },
+                    color: selectedWorkout == Workout.Range
+                        ? kActivatedBackgroundColor
+                        : kDeactivatedBackgroundColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          rangeFinishedNumber.toString(),
-                          style: kNumberFinishedTextStyle,
-                        ),
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         CardIcons(
                           label: 'Range',
-                          iconName: FontAwesomeIcons.heart,
+                          iconName: FontAwesomeIcons.arrowUp,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            rangeFinishedNumber.toString(),
+                            style: kNumberFinishedTextStyle,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                finishedPercent(rangeFinishedNumber).toString(),
+                                style: kNumberFinishedTextStyle,
+                              ),
+                              Text(
+                                '%',
+                                style: kNumberFinishedTextStyle,
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -145,21 +196,47 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: WorkoutTypeCard(
-                    onPress: () {},
-                    color: kDeactivatedBackgroundColor,
+                    onPress: () {
+                      setState(() {
+                        selectedWorkout = Workout.Cardio;
+                        cardioFinishedNumber++;
+                        print(cardioFinishedNumber);
+                        print(finishedPercent(cardioFinishedNumber));
+                      });
+                    },
+                    color: selectedWorkout == Workout.Cardio
+                        ? kActivatedBackgroundColor
+                        : kDeactivatedBackgroundColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          cardioFinishedNumber.toString(),
-                          style: kNumberFinishedTextStyle,
-                        ),
-                        SizedBox(
-                          height: 30.0,
-                        ),
                         CardIcons(
                           label: 'Cardio',
-                          iconName: FontAwesomeIcons.running,
+                          iconName: FontAwesomeIcons.arrowUp,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            cardioFinishedNumber.toString(),
+                            style: kNumberFinishedTextStyle,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                finishedPercent(cardioFinishedNumber)
+                                    .toString(),
+                                style: kNumberFinishedTextStyle,
+                              ),
+                              Text(
+                                '%',
+                                style: kNumberFinishedTextStyle,
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
