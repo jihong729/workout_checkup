@@ -37,7 +37,7 @@ class _InputPageState extends State<InputPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('THE 15 WORKOUT CHALLENGE',
-            style: TextStyle(color: Colors.lightGreenAccent, fontSize: 20.0)),
+            style: TextStyle(color: Color(0xFF2e7d32), fontSize: 20.0)),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
