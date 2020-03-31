@@ -13,3 +13,5 @@ const TextStyle kNumberFinishedTextStyle = TextStyle(
   fontSize: 50,
   color: Color(0xFFFDD835),
 );
+
+const kGoalNumber = 15;
