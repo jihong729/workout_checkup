@@ -1,6 +1,6 @@
 # workoutcheckup
 
-A new Flutter application.
+An application that checks how well you are working out.
 
 ## Getting Started
 
