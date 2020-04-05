@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 import 'card_icons.dart';
+import 'round_icon_button.dart';
 
 class WorkoutTypeCard extends StatefulWidget {
   final Color color;
@@ -11,9 +13,9 @@ class WorkoutTypeCard extends StatefulWidget {
   final String iconLabel;
 
   WorkoutTypeCard({
-    @required this.color,
-    @required this.onPress,
-    @required this.iconLabel,
+    this.color,
+    this.onPress,
+    this.iconLabel,
   });
 
   @override
@@ -26,16 +28,27 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
 
   _incrementCounter() async {
     countNumber++;
-    print('Pressed ${widget.iconLabel} $countNumber times.');
     await prefs.setInt('${widget.iconLabel}', countNumber);
+    print('Pressed ${widget.iconLabel} $countNumber times.');
   }
 
-//  @override
-//  initState() async {
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-//    countNumber = (prefs.getInt('${widget.iconLabel}') ?? 0);
-//    super.initState();
-//  }
+//TODO: solve the error that is activated when using initState()
+  @override
+  void initState() {
+    super.initState();
+    getRecentResults();
+  }
+
+  void getRecentResults() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    countNumber = (prefs.getInt('${widget.iconLabel}') ?? 0);
+  }
+
+  int finishedPercent(int finishedNumber) {
+    double dividedNumber = finishedNumber / kGoalNumber;
+    int finalPercent = (dividedNumber * 100).round();
+    return finalPercent;
+  }
 
   void createAlert(
       BuildContext context, int workoutNumber, String workoutName) {
@@ -52,18 +65,11 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          widget.onPress();
-          setState(() {
-            if (countNumber < kGoalNumber) _incrementCounter();
-          });
-          createAlert(
-            context,
-            countNumber,
-            widget.iconLabel,
-          );
-        },
+        onTap: widget.onPress,
         child: Container(
+          margin: EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0), color: widget.color),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -79,7 +85,7 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 15.0),
+                margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -94,19 +100,39 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  RoundIconButton(
+                    icon: FontAwesomeIcons.minus,
+                    onPress: () {
+                      setState(() {
+                        if (countNumber > 0) countNumber--;
+                      });
+                      WorkoutTypeCard(color: kActivatedBackgroundColor);
+                    },
+                  ),
+                  RoundIconButton(
+                    icon: Icons.add,
+                    onPress: () {
+                      setState(() {
+                        if (countNumber < kGoalNumber) _incrementCounter();
+                      });
+                      WorkoutTypeCard(color: kActivatedBackgroundColor);
+                      createAlert(
+                        context,
+                        countNumber,
+                        widget.iconLabel,
+                      );
+                    },
+                  ),
+                ],
+              )
             ],
           ),
-          margin: EdgeInsets.all(15.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0), color: widget.color),
         ),
       ),
     );
-  }
-
-  int finishedPercent(int finishedNumber) {
-    double dividedNumber = finishedNumber / kGoalNumber;
-    int finalPercent = (dividedNumber * 100).round();
-    return finalPercent;
   }
 }
