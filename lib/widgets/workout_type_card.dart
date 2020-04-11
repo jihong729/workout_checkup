@@ -53,11 +53,25 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
   void createAlert(
       BuildContext context, int workoutNumber, String workoutName) {
     if (workoutNumber == kGoalNumber) {
+      // TODO: Refactor this Alert to a separate dart file(alerts.dart)
       Alert(
-        context: context,
-        title: "Awesome!",
-        desc: "You finished the Goal for $workoutName.",
-      ).show();
+          style: kAlertStyle,
+          context: context,
+          title: "Awesome!",
+          desc: "You finished the Goal for $workoutName.",
+          image: Image.asset('images/complete.png'),
+          buttons: [
+            DialogButton(
+              child: Text(
+                'COOL',
+                style: kAlertButtonTextStyle,
+              ),
+              color: Colors.grey.shade700,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ]).show();
     }
   }
 
