@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workoutcheckup/services/alert_creator.dart';
 
 import '../constants.dart';
 import 'card_icons.dart';
@@ -48,31 +48,6 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
     double dividedNumber = finishedNumber / kGoalNumber;
     int finalPercent = (dividedNumber * 100).round();
     return finalPercent;
-  }
-
-  void createAlert(
-      BuildContext context, int workoutNumber, String workoutName) {
-    if (workoutNumber == kGoalNumber) {
-      // TODO: Refactor this Alert to a separate dart file(alerts.dart)
-      Alert(
-          style: kAlertStyle,
-          context: context,
-          title: "Awesome!",
-          desc: "You finished the Goal for $workoutName.",
-          image: Image.asset('images/complete.png'),
-          buttons: [
-            DialogButton(
-              child: Text(
-                'COOL',
-                style: kAlertButtonTextStyle,
-              ),
-              color: Colors.grey.shade700,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ]).show();
-    }
   }
 
   @override
@@ -134,11 +109,12 @@ class _WorkoutTypeCardState extends State<WorkoutTypeCard> {
                         if (countNumber < kGoalNumber) _incrementCounter();
                       });
                       WorkoutTypeCard(color: kActivatedBackgroundColor);
-                      createAlert(
-                        context,
-                        countNumber,
-                        widget.iconLabel,
-                      );
+                      AlertCreater(
+                              alertButtonTextStyle: kAlertButtonTextStyle,
+                              alertStyle: kAlertStyle,
+                              goalNumber: kGoalNumber,
+                              context: context)
+                          .createAlert(context, countNumber, widget.iconLabel);
                     },
                   ),
                 ],
